@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Listagem JSF - Sistema Biblioteca UniCesumar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .message-info {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .jsf-badge {
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="container">
+        <div class="header">
+            <div class="jsf-badge">JSF Interface</div>
+            <h1>🌟 Acervo da Biblioteca JSF</h1>
+            <p>Listagem desenvolvida com JavaServer Faces</p>
+        </div>
+        
+        <div class="content">
+            <div class="messages">
+                <h:messages globalOnly="true" 
+                           errorClass="message-error" 
+                           infoClass="message-info"/>
+            </div>
+            
+            <div class="actions">
+                <h:button value="Novo Livro" outcome="cadastro" styleClass="btn btn-success"/>
+                <h:button value="Menu Principal" outcome="index" styleClass="btn btn-secondary"/>
+            </div>
+            
+            <h:panelGroup rendered="#{not empty requestScope.livros}">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Autor</th>
+                                <th>Ano</th>
+                                <th>ISBN</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{requestScope.livros}" var="livro">
+                                <tr>
+                                    <td>#{livro.titulo}</td>
+                                    <td>#{livro.autor}</td>
+                                    <td>#{livro.anoPublicacao}</td>
+                                    <td>#{livro.isbn}</td>
+                                    <td>
+                                        <form action="LivroServlet" method="post" style="display:inline;">
+                                            <input type="hidden" name="acao" value="excluir" />
+                                            <input type="hidden" name="isbn" value="#{livro.isbn}" />
+                                            <button type="submit" class="btn btn-danger" 
+                                                    onclick="return confirm('Tem certeza que deseja excluir este livro?')">
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </h:panelGroup>
+            
+            <h:panelGroup rendered="#{empty requestScope.livros}">
+                <div class="empty-state">
+                    <h3>Nenhum livro cadastrado</h3>
+                    <p>Comece adicionando o primeiro livro ao acervo!</p>
+                    <h:button value="Cadastrar Primeiro Livro" outcome="cadastro" styleClass="btn btn-success" style="margin-top: 15px;"/>
+                </div>
+            </h:panelGroup>
+        </div>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <title>Cadastro de Livros - Sistema Biblioteca UniCesumar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .message-info {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .jsf-badge {
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="container">
+        <div class="header">
+            <div class="jsf-badge">JSF Interface</div>
+            <h1>🌟 Cadastro de Livros</h1>
+            <p>Interface desenvolvida com JavaServer Faces</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="messages">
+                <c:if test="${not empty requestScope.mensagemErro}">
+                    <div class="message-error">${requestScope.mensagemErro}</div>
+                </c:if>
+                <c:if test="${not empty requestScope.mensagemSucesso}">
+                    <div class="message-info">${requestScope.mensagemSucesso}</div>
+                </c:if>
+            </div>
+            
+            <form action="LivroServlet" method="post">
+                <input type="hidden" name="acao" value="cadastrar"/>
+                
+                <div class="form-group">
+                    <label for="titulo">Título do Livro:</label>
+                    <input type="text" id="titulo" name="titulo" 
+                           class="form-control" required="required"
+                           value="${not empty requestScope.titulo ? requestScope.titulo : ''}"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="autor">Autor:</label>
+                    <input type="text" id="autor" name="autor" 
+                           class="form-control" required="required"
+                           value="${not empty requestScope.autor ? requestScope.autor : ''}"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="anoPublicacao">Ano de Publicação:</label>
+                    <input type="number" id="anoPublicacao" name="anoPublicacao" 
+                           class="form-control" required="required" min="1000" max="2024"
+                           value="${not empty requestScope.anoPublicacao ? requestScope.anoPublicacao : ''}"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="isbn">ISBN:</label>
+                    <input type="text" id="isbn" name="isbn" 
+                           class="form-control" required="required"
+                           value="${not empty requestScope.isbn ? requestScope.isbn : ''}"/>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">Cadastrar Livro</button>
+                    <a href="LivroServlet?acao=listar" class="btn btn-secondary">Voltar à Listagem</a>
+                    <a href="index.xhtml" class="btn btn-secondary">Voltar ao Menu Principal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</h:body>
+</html>
