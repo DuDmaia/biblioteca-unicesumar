@@ -1,8 +1,8 @@
-# Sistema Web - Biblioteca Universidade Cesumar
+# Sistema Web - Biblioteca Universidade UniCesumar
 
 ## Descrição do Projeto
 
-Este é um sistema web desenvolvido em Java para modernização dos serviços da Biblioteca da Universidade Cesumar. O sistema permite aos funcionários realizarem o cadastro, listagem e exclusão de livros no acervo interno, substituindo o controle manual em planilhas por uma solução web moderna e funcional.
+Este é um sistema web desenvolvido em Java para modernização dos serviços da Biblioteca da UniCesumar. O sistema permite aos funcionários realizarem o cadastro, listagem e exclusão de livros no acervo interno, substituindo o controle manual em planilhas por uma solução web moderna e funcional.
 
 ## Tecnologias Utilizadas
 
@@ -57,11 +57,11 @@ O projeto segue o padrão **MVC (Model-View-Controller)**:
 ## Estrutura do Projeto
 
 ```
-biblioteca-cesumar/
+biblioteca-unicesumar/
 ├── src/
 │   └── main/
 │       ├── java/
-│       │   └── com/cesumar/biblioteca/
+│       │   └── com/unicesumar/biblioteca/
 │       │       ├── model/
 │       │       │   ├── Livro.java
 │       │       │   └── LivroDAO.java
@@ -92,7 +92,7 @@ biblioteca-cesumar/
 
 1. **Clone ou baixe o projeto**
    ```bash
-   cd biblioteca-cesumar
+   cd biblioteca-unicesumar
    ```
 
 2. **Compile o projeto**
@@ -106,12 +106,12 @@ biblioteca-cesumar/
    ```
 
 4. **Deploy no servidor**
-   - Copie o arquivo `target/biblioteca-cesumar.war` para o diretório `webapps` do Tomcat
+   - Copie o arquivo `target/biblioteca-unicesumar.war` para o diretório `webapps` do Tomcat
    - Ou faça o deploy através do painel administrativo do servidor
 
 5. **Acesse o sistema**
    ```
-   http://localhost:8080/biblioteca-cesumar/
+   http://localhost:8080/biblioteca-unicesumar/
    ```
 
 ## Interfaces Disponíveis
@@ -183,7 +183,7 @@ biblioteca-cesumar/
 
 ## Autor
 
-Desenvolvido para a Universidade Cesumar como parte do processo de modernização da biblioteca.
+Desenvolvido para a UniCesumar como parte do processo de modernização da biblioteca.
 
 ## Licença
 
